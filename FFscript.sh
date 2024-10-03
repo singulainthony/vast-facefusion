@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-echo Setting Platform
+echo "Setting Platform"
 
 apt --assume-yes -y install git-all &&
 apt --assume-yes -y  install curl &&
@@ -16,24 +16,19 @@ conda init --all &&
 conda create --name facefusion python=3.10  -y &&
 conda activate facefusion &&
 
-echo Runtime Install
+echo "Runtime Install"
 
 conda install -y conda-forge::cuda-runtime=12.4.1 conda-forge::cudnn=9.2.1.18 &&
 pip install tensorrt==10.4.0 -q --extra-index-url https://pypi.nvidia.com &&
 
 
-echo Installing FaceFusion
+echo "Installing FaceFusion"
 
 cd /root/ &&
 git clone https://github.com/facefusion/facefusion.git &&
 
 cd /root/facefusion/ &&
-python3 install.py --onnxruntime cuda &&
-conda deactivate && conda deactivate &&
-conda activate facefusion &&
+python3 install.py --onnxruntime cuda
 
-echo Run FF
-
-
-python3 facefusion.py run
+echo "Install Complete, Now Launch FaceFusion"
 
